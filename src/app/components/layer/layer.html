@@ -1,0 +1,14 @@
+<div class="layer" *ngIf = "data.length && data.length > 0">
+  <div class="layer-main" *ngFor = "let datas of data">
+    <div class="title" *ngIf = "datas.title">{{datas.title}}</div>
+    <ul>
+      <li *ngFor = "let item of datas.datas" (click) = "listClick(item)">
+        <div>{{item.name}}</div>
+        <span *ngIf = "item.desc">{{item.desc}}</span>
+      </li>
+    </ul>
+  </div>
+  <div class="layer-main" *ngIf = "btns.length">
+    <button *ngFor = "let btn of btns" (click) = "btnClick(btn)">{{btn.name}}</button>
+  </div>
+</div>

@@ -1,0 +1,49 @@
+.layer-tools-loop{
+  position: absolute;
+  bottom: 40px;
+  background: #fdfdfd;
+  width: 150px;
+  color: #fff;
+  left: 0px;
+  margin-left: -53px;
+  border-radius: 6px;
+  transition: transform .3s ease-in;
+  transform : scale(0,0);
+  transform-origin : center 110%;
+  box-shadow: 0 0 25px 3px rgba(0,0,0,.5);
+  ul{
+    border-radius: 6px;
+    overflow: hidden;
+    li{
+      line-height: 40px;
+      height: 40px;
+      color: #ddd;
+      border-bottom: 1px solid #d2d2d2;
+      text-align: center;
+    }
+    li:hover{
+      background: #f1f1f1;
+    }
+    li:last-child{
+      border: 0;
+    }
+    .active{
+      color: #333;
+    }
+  }
+}
+
+.layer-tools-loop-show{
+  transform: scale(1,1);
+}
+.layer-tools-loop::after{
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: 10px solid;
+  border-color: #fff transparent transparent transparent;
+  content: "";
+  bottom: -20px;
+  left: 50%;
+  margin-left: -10px;
+}

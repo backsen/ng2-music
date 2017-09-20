@@ -1,0 +1,48 @@
+<div class="play-list listHide" (click) = "playListView($event)">
+  <h3 class="list-title"><span>播放列表</span></h3>
+  <ul>
+    <li *ngFor = "let row of data;let i = index" class="{{row.playSongMusic ? 'song' : 'music-list-min-hover'}}" (click) = "play(row , i)">
+      <div class="icon">
+        <i class="ion-ios-pulse-strong color" *ngIf = "row.playSongMusic"></i>
+      </div>
+      <div class="music-img" *ngIf = "row.playSongMusic">
+        <img src = "{{row.imgSrc}}" *ngIf = "row.imgSrc"/>
+        <i class="ion-music-note" *ngIf = "!row.imgSrc"></i>
+      </div>
+      <div class="music-info" *ngIf = "row.playSongMusic">
+        <div class="music-info-top">
+          <div class="name" [innerHTML] = "row.songName"></div>
+          <div class="time">{{getTime(row.timeLength)}}</div>
+        </div>
+        <div class="music-info-bottom">
+          <div class="name" [innerHTML] = "row.singerName"></div>
+          <div class="btns">
+            <button (click) = "setList(i)">
+              <i class="{{row.active ? 'ion-ios-heart like-active' : 'like-hover ion-ios-heart-outline'}}"></i>
+            </button>
+            <button (click) = "delete($event , i)">
+              <i class="hover ion-ios-trash-outline"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="music-list-min" *ngIf = "!row.playSongMusic">
+        <div class="name" [innerHTML] = "row.name"></div>
+        <div class="time">{{getTime(row.timeLength)}}</div>
+        <div class="btns">
+          <button (click) = "setList(i)">
+            <i class="{{row.active ? 'ion-ios-heart like-active' : 'like-hover ion-ios-heart-outline'}}"></i>
+          </button>
+          <button>
+            <i class="hover ion-ios-play-outline"></i>
+          </button>
+          <button (click) = "delete($event , i)">
+            <i class="hover ion-ios-trash-outline"></i>
+          </button>
+        </div>
+      </div>
+
+    </li>
+  </ul>
+</div>

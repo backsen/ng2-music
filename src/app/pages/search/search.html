@@ -1,0 +1,9 @@
+<div class="search-result">
+  <h3>搜索 “ <span class="color">{{keyWord}}</span> ” 相关的歌曲</h3>
+  <div class="tab-nav">
+    <music-navs [datas] = "navdatas" (onClick) = "navClick($event)"></music-navs>
+  </div>
+  <div class="tabl-list" (scroll) = "scroll($event)">
+    <music-list [rows] = "dqRows" [btns] = "dqBtns" (btnClick) = "onBtnClick($event)"></music-list>
+  </div>
+</div>

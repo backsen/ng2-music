@@ -1,0 +1,16 @@
+<div class="menus">
+  <ul>
+    <li *ngFor = "let menu of menus">
+      <div class="list" [ngClass] = "{'title' : menu.childrens && menu.childrens.length}">
+        <i class="{{menu.icon}}" *ngIf = "menu.icon"></i><a href="{{ menu.url ? '/#/' + menu.url : 'javascript:void()'}}">{{menu.name}}</a>
+      </div>
+      <ul *ngIf = "menu.childrens && menu.childrens.length">
+        <li *ngFor = "let item of menu.childrens" class="childrens">
+          <div class="list">
+            <i class="{{item.icon}}" *ngIf = "item.icon"></i><a href="{{ item.url ? '/#/' + item.url : 'javascript:void()'}}">{{item.name}}</a>
+          </div>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>

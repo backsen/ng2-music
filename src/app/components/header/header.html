@@ -1,0 +1,27 @@
+<div class="header">
+  <div class="name">{{app.name}}</div>
+  <div class="search-box">
+    <input
+      type="text"
+      name = "keyWord"
+      [(ngModel)] = "keyWord"
+      id = "searchInput"
+      (blur) = "searchInputBlur()"
+      (focus) = "searchInputFocus()"
+      (compositionstart) = "view.lock = true"
+      (compositionend) = "compositionend()"
+      (input) = "searchInput()"
+      (keydown) = "searchInputKeydown($event)"
+    />
+    <music-layer
+      *ngIf = "view.showSearchInput"
+      [hidden] = "view.hiddenLayer"
+      [data] = "layerData"
+      [btns] = "layerBtns"
+      (onBtnClick) = "layerBtnOnClick($event)"
+    ></music-layer>
+    <div class="search-main" (click) = "showSearchInput()" [ngClass] = "{'search-main-hover' : view.showSearchInput}">
+      <i class="ion-ios-search-strong" (click) = "searchInputKeydown($event , true)"></i> <span *ngIf = "!view.showSearchInput">搜索</span>
+    </div>
+  </div>
+</div>

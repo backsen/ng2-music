@@ -1,0 +1,17 @@
+<div class="list">
+  <ul class="title">
+    <li *ngFor = "let item of titles" [ngStyle] = "{'width' : item.width}" class="{{item.class}}">{{item.name}}</li>
+  </ul>
+  <ul class="body" *ngIf = "titles.length">
+      <li *ngFor = "let row of rows;let rowIndex = index;">
+        <div *ngFor = "let item of titles" class="list-li {{row.class}} {{item.class}}"  [ngStyle] = "{'width' : item.width}" >
+          <span *ngIf = "!item['isBtn']" [innerHTML] = "getData(row , item)" title = "{{getData(row , item)}}"></span>
+          <div *ngIf = "item['isBtn']">
+            <button *ngFor = "let btn of btns;let btnIndex = index;" (click) = "btnClick.emit({'btn' : btn , 'row' : row , rowIndex : rowIndex , btnIndex : btnIndex})">
+              <i class="hover {{row.active && btn.active ? btn.active : btn.icon}} list-icon {{btn.hover ? btn.hover+'-hover' : ''}}" *ngIf = "btn.icon"></i>{{btn.name}}
+            </button>
+          </div>
+        </div>
+      </li>
+  </ul>
+</div>

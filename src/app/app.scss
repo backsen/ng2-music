@@ -1,0 +1,163 @@
+
+$bgColor:#0099ff;
+
+$headings: (".skin-1": #0099ff, ".skin-2": red, ".skin-3": green);
+@each $skin, $color in $headings {
+  #{$skin} {
+    .color{
+      color: $color;
+    }
+    .text-em{
+      em{
+        color: $color;
+      }
+    }
+    .hover:hover{
+      color: $color;
+    }
+    .like-active,.menu-like{
+      color: #ec0202;
+    }
+    .like-hover:hover{
+      color: #ec0202;
+    }
+
+    .box-shadow{
+      box-shadow: 0 0 10px $color;
+    }
+
+    .list-title{
+      height: 44px;
+      text-indent: 20px;
+      span{
+        font-size: 20px;
+        display: inline-block;
+        text-indent: 10px;
+        border-left: 2px solid $color;
+        margin-top: 12px;
+      }
+    }
+
+  }
+}
+
+$textaligns: (left,center,right);
+@each $aligins in $textaligns {
+  .text-#{$aligins} {
+    text-align: $aligins;
+  }
+}
+
+
+html,body{
+  width: 100%;
+  height: 100%;
+  background: #f1f1f1;
+  overflow: hidden;
+}
+
+h1{
+  text-align: center;
+  font-size: 30px;
+  margin-top: 20px;
+  color: #666;
+  span{
+    font-size: 16px;
+  }
+}
+
+.f-left{
+  float: left;
+}
+
+
+#music{
+  position: relative;
+  width: 1000px;
+  height: 690px;
+  box-shadow: 0 0 10px #ddd;
+  margin: 0 auto;
+  margin-top: 30px;
+  border-radius: 8px;
+  border: 1px solid #d2d2d2;
+  background: $bgColor;
+  overflow: hidden;
+}
+#bg{
+  position: absolute;
+  top: -10px;
+  bottom: -10px;
+  right: -10px;
+  left: -10px;
+  filter: blur(5px);
+  background-position: center center;
+  background-size: cover;
+}
+.header-main{
+  height: 60px;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  left: 0;
+  background: rgba(0,0,0,0.1);
+}
+.footer-main{
+  height: 80px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  left: 0;
+  background: rgba(0,0,0,0.1);
+}
+.header-main,.footer-main{
+  z-index: 100;
+}
+
+
+.content{
+  position: absolute;
+  top: 60px;
+  z-index: 1;
+  bottom: 80px;
+  background: rgba(255,255,255,.85);
+  width: 100%;
+  border: 1px solid #d2d2d2;
+  border-left: 0;
+  border-right: 0;
+  .left-main{
+    width: 200px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background: rgba(255,255,255,.9);
+    border-right: 1px solid #d2d2d2;
+  }
+  .right-main{
+    left: 200px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    overflow: auto;
+  }
+  .play-list-main{
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 300px;
+    transition: right .5s;
+  }
+  .play-list-main-hidden{
+    right: -350px;
+  }
+}
+
+.is-img-bg{
+  background: rgba(0,0,0,.55);
+  color: #fff;
+  i{
+    color: #fff;
+  }
+}

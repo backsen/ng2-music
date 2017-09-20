@@ -1,0 +1,3 @@
+<div class="navs">
+    <span *ngFor = "let item of datas" (click) = "navClick(item)" [ngClass] = "{'color' : item.active , 'active' : item.active}" class="hover">{{item.name}}</span>
+</div>

@@ -1,0 +1,19 @@
+.search-result{
+  padding: 20px;
+  h3{
+    font-size: 24px;
+  }
+  .tab-nav{
+    margin-top: 20px;
+    height: 35px;
+    border-bottom: 1px solid #ddd;
+  }
+  .tabl-list{
+    position: absolute;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+    top: 100px;
+    overflow: auto;
+  }
+}

@@ -1,0 +1,29 @@
+[
+  {
+    "name" : "歌曲名",
+    "width" : "40%",
+    "code" : "SongName"
+  },
+  {
+    "name" : "歌手",
+    "width" : "10%",
+    "code" : "SingerName"
+  },
+  {
+    "name" : "专辑",
+    "width" : "20%",
+    "code" : "AlbumName"
+  },
+  {
+    "name" : "时长",
+    "width" : "10%",
+    "code" : "Duration",
+    "type" : "durationByMin"
+  },
+  {
+    "name" : "操作",
+    "width" : "20%",
+    "isBtn" : true,
+    "class" : "text-center"
+  }
+]

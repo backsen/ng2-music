@@ -1,0 +1,54 @@
+<div class="footer">
+  <audio src="{{playMusic.url}}" autoplay id = "audio"></audio>
+  <div class="btns">
+    <button>
+      <i class="ion-ios-skipbackward"></i>
+    </button>
+    <button class="max" (click) = "musicStatus()">
+      <i class="{{playMusic.play ? 'ion-ios-pause' : 'ion-ios-play'}}"></i>
+    </button>
+    <button>
+      <i class="ion-ios-skipforward"></i>
+    </button>
+  </div>
+  <div class="palys">
+    <div class="user-img">
+      <img src = "{{playMusic.imgSrc}}" *ngIf = "playMusic.imgSrc"/>
+      <i class="ion-music-note" *ngIf = "!playMusic.imgSrc"></i>
+    </div>
+    <div class="music-song">
+      <div class="info">
+        <div class="info-name">{{playMusic.name}}</div>
+        <div class="info-time">{{getTime(playMusic.currentTime)}} / {{getTime(playMusic.timeLength)}}</div>
+      </div>
+      <div class="progress">
+        <div class="progress-wrap" (mousedown) = "mousedown($event)" (click) = "progress($event)">
+          <div class="progress-bar" [ngStyle] = "{'width' : width + 'px'}">
+            <div class="progress-bar-hover" [ngStyle] = "{'right' : width < 10 ? width - 10 + 'px' : 0}"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="tools">
+    <div class="tools-btn">
+      <i class="{{playMusic.active ? 'like-active ion-ios-heart' : 'ion-ios-heart-outline'}}" (click) = "setLike()"></i>
+    </div>
+    <div class="tools-btn">
+      <i class="ion-ios-volume-high"></i>
+    </div>
+    <div class="tools-btn">
+      <div class="layer-tools-loop" [ngClass] = "{'layer-tools-loop-show' : view.showLoopLayer}">
+        <ul>
+          <li *ngFor = "let item of loopStatus;let i = index" (click) = "audioLoop = i" [ngClass] = "{'active' : audioLoop == i}">
+            <span>{{item.name}}</span>
+          </li>
+        </ul>
+      </div>
+      <img src="assets/images/icons/{{loopStatus[audioLoop].icon}}.png" (click) = "$event.stopPropagation();view.showLoopLayer = !view.showLoopLayer"/>
+    </div>
+    <div class="tools-btn" (click) = "playListView($event)">
+      <i class="ion-ios-list-outline"></i><span *ngIf = "playList.length">{{playList.length}}</span>
+    </div>
+  </div>
+</div>

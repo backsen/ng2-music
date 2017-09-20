@@ -1,0 +1,23 @@
+@mixin flex($flex:1){
+  -webkit-box-flex : $flex;
+  -moz-box-flex : $flex;
+  -ms-box-flex : $flex;
+  -o-box-flex : $flex;
+  box-flex : $flex;
+}
+
+@mixin box(){
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-box;
+  display: -o-box;
+  display: box;
+}
+
+@mixin userselect($value : none){
+  -webkit-user-select: $value;
+  -moz-user-select: $value;
+  -o-user-select: $value;
+  -ms-user-select: $value;
+  user-select: $value;
+}
