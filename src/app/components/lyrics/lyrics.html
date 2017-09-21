@@ -1,0 +1,7 @@
+<div class="lyrics">
+  <div class="lyrics-main" id="lyricsId">
+    <div [ngStyle] = "{'transform' : 'translate(0px,-' + top + 'px)'}">
+      <p *ngFor = "let item of lyrics;let i = index" [ngClass] = "{'l-color active' : i == index}">{{item.text}}</p>
+    </div>
+  </div>
+</div>

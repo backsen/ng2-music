@@ -1,0 +1,32 @@
+.lyrics{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,.3);
+  .lyrics-main{
+    position: absolute;
+    top: 100px;
+    bottom: 100px;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    padding: 40px 0;
+    -webkit-mask-box-image: -webkit-linear-gradient(bottom,transparent,transparent 5%,#fff 20%,#fff 80%,transparent 95%,transparent);
+    mask-image : -moz-linear-gradient(bottom,transparent,transparent 5%,#fff 20%,#fff 80%,transparent 95%,transparent);
+    .active{
+      font-size: 24px;
+    }
+    div{
+      transition: all .5s;
+    }
+  }
+  p{
+    text-align: center;
+    height: 40px;
+    line-height: 40px;
+    color: #fff;
+    transition: all .5s;
+  }
+}

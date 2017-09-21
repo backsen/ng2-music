@@ -5,4 +5,5 @@ export * from './layer';
 export * from './navs';
 export * from './list';
 export * from './menu';
-export * from './playList'
+export * from './playList';
+export * from './lyrics';

@@ -1,18 +1,18 @@
 <div class="footer">
   <audio src="{{playMusic.url}}" autoplay id = "audio"></audio>
   <div class="btns">
-    <button>
+    <button (click) = "switchMusic(false)">
       <i class="ion-ios-skipbackward"></i>
     </button>
     <button class="max" (click) = "musicStatus()">
       <i class="{{playMusic.play ? 'ion-ios-pause' : 'ion-ios-play'}}"></i>
     </button>
-    <button>
+    <button (click) = "switchMusic(true)">
       <i class="ion-ios-skipforward"></i>
     </button>
   </div>
   <div class="palys">
-    <div class="user-img">
+    <div class="user-img" (click) = "showLyricsFn()">
       <img src = "{{playMusic.imgSrc}}" *ngIf = "playMusic.imgSrc"/>
       <i class="ion-music-note" *ngIf = "!playMusic.imgSrc"></i>
     </div>
@@ -35,9 +35,6 @@
       <i class="{{playMusic.active ? 'like-active ion-ios-heart' : 'ion-ios-heart-outline'}}" (click) = "setLike()"></i>
     </div>
     <div class="tools-btn">
-      <i class="ion-ios-volume-high"></i>
-    </div>
-    <div class="tools-btn">
       <div class="layer-tools-loop" [ngClass] = "{'layer-tools-loop-show' : view.showLoopLayer}">
         <ul>
           <li *ngFor = "let item of loopStatus;let i = index" (click) = "audioLoop = i" [ngClass] = "{'active' : audioLoop == i}">
@@ -46,6 +43,16 @@
         </ul>
       </div>
       <img src="assets/images/icons/{{loopStatus[audioLoop].icon}}.png" (click) = "$event.stopPropagation();view.showLoopLayer = !view.showLoopLayer"/>
+    </div>
+    <div class="tools-btn">
+      <div class="layer-tools-volume" [ngClass] = "{'layer-tools-volume-show' : view.showVolume}">
+        <div class="volume-main" (mousedown) = "volumeMousedown($event)">
+          <div class="volume-bar bg-color" [ngStyle] = "{'height' : height + 'px'}">
+            <span class="bar bg-color" [ngStyle] = "{'top' : height < 10 ? height - 10 + 'px' : 0}"></span>
+          </div>
+        </div>
+      </div>
+      <i class="ion-ios-volume-high" (click) = "$event.stopPropagation();view.showVolume = !view.showVolume;getHeight()"></i>
     </div>
     <div class="tools-btn" (click) = "playListView($event)">
       <i class="ion-ios-list-outline"></i><span *ngIf = "playList.length">{{playList.length}}</span>

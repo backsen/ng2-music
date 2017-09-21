@@ -15,7 +15,8 @@ import {
   Navs,
   List,
   Menu,
-  PlayList
+  PlayList,
+  Lyrics
 } from './components';
 
 
@@ -27,7 +28,8 @@ const COMPONENTS = [
   Navs,
   List,
   Menu,
-  PlayList
+  PlayList,
+  Lyrics
 ];
 
 import {

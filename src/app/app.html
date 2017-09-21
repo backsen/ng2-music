@@ -1,6 +1,5 @@
 <h1>{{app.name}}<span> -- {{app.desc}}</span></h1>
 <div id = "music" class="skin-1" (click) = "appClick($event)">
-  <div id="bg" [hidden] = "!isImgBg" [ngStyle] = "{'background-image' : isImgBg ? 'url('+bgImgs[bgIndex]+')' : '/assets/images/icon/lb.png'}"></div>
   <div class="header-main" [ngStyle] = "{'background' : isImgBg ? 'rgba(0,0,0,.55)' : 'rgba(0,0,0,.1)'}">
     <music-header [app] = "app"></music-header>
   </div>
@@ -11,11 +10,18 @@
     <div class="right-main">
       <router-outlet></router-outlet>
     </div>
-    <div class="play-list-main" [ngClass] = "{'play-list-main-hidden' : view.playListHide}">
-      <music-play-list></music-play-list>
-    </div>
   </div>
   <div class="footer-main" [ngStyle] = "{'background' : isImgBg ? 'rgba(0,0,0,.55)' : 'rgba(0,0,0,.1)'}">
     <music-footer></music-footer>
   </div>
+  <div class="play-list-main" [ngClass] = "{'play-list-main-hidden' : view.playListHide}" [ngStyle] = "{'top' : showLyrics ? 0 : '60px'}">
+    <music-play-list></music-play-list>
+  </div>
+  <div class="lyrics-main" [ngStyle] = "{'top' : showLyrics ? '0' : '100%'}">
+    <div id="bg" [hidden] = "!isImgBg" [ngStyle] = "{'background-image' : isImgBg ? 'url('+bgImgs[bgIndex]+')' : '/assets/images/icon/lb.png'}" [ngClass] = "{'bg-notImg' : !bgImgs.length}"></div>
+    <music-lyrics></music-lyrics>
+  </div>
+</div>
+<div class="load-imgs">
+  <img *ngFor = "let img of bgImgs" src="{{img}}">
 </div>

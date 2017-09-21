@@ -23,14 +23,22 @@ export class Footer {
   public ele:any = {};
   public pageX: number = 0;
 
+  public lyrics:Array<any> = [];
+
+  public playTime:any = 0;
+  public playTimer:any = null;
+
   public loopStatus:Array<Object> = [];
 
   public audioLoop:number = 0;
 
   public audio:any = {};
 
+  public vEle:any = {};
+
   public view:Object = {
-    showLoopLayer : false
+    showLoopLayer : false,
+    showVolume : false
   }
 
   constructor(
@@ -93,14 +101,28 @@ export class Footer {
   }
 
   ngAfterViewInit(){
+    this.vEle = this.elementRef.nativeElement.querySelector(".volume-main");
     this.audio = this.elementRef.nativeElement.querySelector("#audio");
     this.ele = this.elementRef.nativeElement.querySelector(".progress-wrap");
+    this.audio.volume = localStorage.getItem("volume") || this.audio.volume;
     this.audioEventListener();
+  }
+
+  public switchMusic(isNext){
+    if(isNext){
+      this.playIndex++;
+      this.playIndex = this.playIndex > this.playList.length - 1 ? 0 : this.playIndex;
+    }else{
+      this.playIndex--;
+      this.playIndex = this.playIndex < 0 ? this.playList.length - 1 : this.playIndex;
+    }
+    this.playList.length && this.getSongInfo(this.playList[this.playIndex]);
   }
 
   public bodyClick(event){
     event.stopPropagation();
     this.view['showLoopLayer'] = false;
+    this.view['showVolume'] = false;
   }
 
   public setLike(){
@@ -179,6 +201,7 @@ export class Footer {
   }
 
   public pause(){
+    clearInterval(this.playTimer);
     this.playMusic['play'] = false;
   }
 
@@ -202,6 +225,12 @@ export class Footer {
 
       this.width = width / 100 * progress;
     }
+    clearInterval(this.playTimer);
+    this.playTime = this.audio.currentTime;
+    this.playTimer = setInterval(() => {
+      this.playTime += 0.01;
+      this.event.do("play.time" , this.playTime);
+    },10);
   }
 
   public next(){
@@ -246,21 +275,50 @@ export class Footer {
       return false;
     }
     this.service.getSongInfo(data.FileHash).then(
-      res => {
-        res = res || {};
+      resData => {
+        let res = resData['data'] || {};
+        this.playTime = 0;
+        clearInterval(this.playTimer);
         this.playMusic = {
           active : false,
-          imgSrc : res['album_img'].replace("{size}",64),
-          name : res['fileName'],
-          timeLength : res['timeLength'],
+          imgSrc : res['img'].replace("{size}",64),
+          name : res['audio_name'],
+          timeLength : res['timelength'] / 1000,
           currentTime : 0,
-          url : res['url'],
+          url : res['play_url'],
           play : false,
           data : data
         }
+        this.service.authorImage(res.hash , res['audio_name']).then(
+          authorImageData => {
+            let imgs = [];
+            let data = authorImageData['data'];
+
+            data.length && data.forEach(
+              item => {
+                item.forEach(
+                  imgsData => {
+                    let imgsDatas = imgsData['imgs'];
+                    for(let i in imgsDatas){
+                      imgsDatas[i].forEach(
+                        img => {
+                          imgs.push(img['sizable_portrait']);
+                        }
+                      )
+                    }
+                  }
+                )
+              }
+            )
+
+            this.event.do("play.bg.img" , imgs);
+          }
+        )
+        this.lyrics = this.service.resetLyrics(res['lyrics']);
         if(this.sql.table("like-data").has({ID : data['ID']})){
           this.playMusic['active'] = true;
         }
+        this.event.do("play.lyrics" , this.lyrics);
         this.playList[this.playIndex]['imgSrc'] = this.playMusic['imgSrc'];
         this.playList[this.playIndex]['playSongMusic'] = true;
         this.event.do("play.list.data" , this.playList);
@@ -268,6 +326,14 @@ export class Footer {
     )
 
   }
+
+  public showLyricsFn(){
+    if(this.playMusic['url']){
+      this.event.do("play.lyrics.show" , true);
+    }
+  }
+
+
 
   public playListView(event){
     event.stopPropagation();
@@ -281,6 +347,17 @@ export class Footer {
     this.isDown = true;
   }
 
+  public oldHeight:any = 0;
+  public pageY:any = 0;
+  public vIsDown:boolean = false;
+  public height:number = 0;
+
+  public volumeMousedown(event){
+    this.oldHeight = this.elementRef.nativeElement.querySelector(".volume-bar").offsetHeight;
+    this.pageY = event['pageY'];
+    this.vIsDown = true;
+  }
+
   public mousemove(event){
     if(this.isDown){
       this.isMove = true;
@@ -288,6 +365,33 @@ export class Footer {
       this.width = this.oldWidth + width;
       this.width = this.width > offsetWidth ? offsetWidth : this.width < 0 ? 0 : this.width;
     }
+
+    if(this.vIsDown){
+      let [height , offsetHeight] = [this.pageY - event['pageY'] , this.vEle.offsetHeight];
+      this.height = this.oldHeight + height;
+      this.height = this.height < 0 ? 0 : this.height > offsetHeight ? offsetHeight : this.height;
+      this.setVolume(offsetHeight);
+    }
+
+  }
+
+  public progress:any = 0;
+
+  public mute:boolean = false;
+
+  public setMute(){
+    this.mute = !this.mute;
+    this.audio.muted = this.mute;
+  }
+
+  public getHeight(){
+    this.height = this.vEle.offsetHeight * this.audio.volume;
+  }
+
+  public setVolume(offsetHeight){
+    this.progress = this.height / offsetHeight;
+    this.audio.volume = this.progress;
+    localStorage.setItem("volume" , this.progress);
   }
 
   public mouseup(event , ele){
@@ -298,6 +402,7 @@ export class Footer {
     }
     this.isDown = false;
     this.isMove = false;
+    this.vIsDown = false;
   }
 
 }

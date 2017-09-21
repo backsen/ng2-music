@@ -7,6 +7,9 @@ $headings: (".skin-1": #0099ff, ".skin-2": red, ".skin-3": green);
     .color{
       color: $color;
     }
+    .l-color{
+      color: $color !important;
+    }
     .text-em{
       em{
         color: $color;
@@ -20,6 +23,10 @@ $headings: (".skin-1": #0099ff, ".skin-2": red, ".skin-3": green);
     }
     .like-hover:hover{
       color: #ec0202;
+    }
+
+    .bg-color{
+      background: $color;
     }
 
     .box-shadow{
@@ -92,6 +99,10 @@ h1{
   filter: blur(5px);
   background-position: center center;
   background-size: cover;
+  transition: all 1s;
+}
+.bg-notImg{
+  background: #000;
 }
 .header-main{
   height: 60px;
@@ -108,8 +119,10 @@ h1{
   width: 100%;
   left: 0;
   background: rgba(0,0,0,0.1);
+  z-index: 1000;
+  transition : all .5s;
 }
-.header-main,.footer-main{
+.header-main{
   z-index: 100;
 }
 
@@ -141,17 +154,33 @@ h1{
     bottom: 0;
     overflow: auto;
   }
-  .play-list-main{
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    width: 300px;
-    transition: right .5s;
-  }
-  .play-list-main-hidden{
-    right: -350px;
-  }
+}
+.play-list-main{
+  position: absolute;
+  top: 60px;
+  right: 0;
+  bottom: 80px;
+  width: 300px;
+  transition: right .5s;
+  z-index: 102;
+}
+.play-list-main-hidden{
+  right: -350px;
+}
+
+.lyrics-main{
+  position: absolute;
+  top: 0%;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 101;
+  transition: all .5s;
+}
+
+.load-imgs{
+  display: none;
 }
 
 .is-img-bg{
