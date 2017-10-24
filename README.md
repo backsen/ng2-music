@@ -1,6 +1,6 @@
 # 说明
 
-本项目基于:
+本项目基于: 
 1.angular2
 2.typescript
 3.ionicons
