@@ -1,4 +1,13 @@
-# Music
+# 说明
+
+本项目基于:
+1.angular2
+2.typescript
+3.ionicons
+
+演示地址 : http://music.ecoder.cc/
+
+## Ng2-Music
 
 This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.28.3.
 
